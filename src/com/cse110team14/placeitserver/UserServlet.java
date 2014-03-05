@@ -43,7 +43,7 @@ public class UserServlet extends PlaceItsServerServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 	super.doGet(req, resp);
-    logger.log(Level.INFO, "Obtaining product listing");
+    logger.log(Level.INFO, "Obtaining user listing");
     String searchFor = req.getParameter("q");
     PrintWriter out = resp.getWriter();
     Iterable<Entity> entities = null;
@@ -65,13 +65,13 @@ public class UserServlet extends PlaceItsServerServlet {
    */
   protected void doPut(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    logger.log(Level.INFO, "Creating Product");
+    logger.log(Level.INFO, "Creating User");
     PrintWriter out = resp.getWriter();
 
-    String category = req.getParameter("name");
-    String description = req.getParameter("description");
+    String name = req.getParameter("name");
+    String password = req.getParameter("password");
     try {
-      User.createOrUpdateProduct(category, description);
+      User.createUser(name, password);
     } catch (Exception e) {
       String msg = Util.getErrorMessage(e);
       out.print(msg);

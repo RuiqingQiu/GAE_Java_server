@@ -20,13 +20,13 @@ public class User {
    * @param description : description
    * @return  updated product
    */
-  public static void createOrUpdateProduct(String name, String username) {
+  public static void createUser(String name, String password) {
     Entity user = getUser(name);
   	if (user == null) {
   	  user = new Entity("User", name);
-  	  user.setProperty("username", username);
+  	  user.setProperty("password", password);
   	} else {
-  	  user.setProperty("username", username);
+  	  //TODO, dulicate user name
   	}
   	Util.persistEntity(user);
   }
