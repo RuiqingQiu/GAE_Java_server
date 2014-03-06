@@ -68,7 +68,7 @@ public class UserServlet extends PlaceItsServerServlet {
     logger.log(Level.INFO, "Creating User");
     PrintWriter out = resp.getWriter();
 
-    String name = req.getParameter("name");
+    String name = req.getParameter("User");
     String password = req.getParameter("password");
     try {
       User.createUser(name, password);

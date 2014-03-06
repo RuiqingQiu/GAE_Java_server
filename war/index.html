@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<title>Google App Engine: Code Lab Example 1</title>
+<title>PlaceIts Server</title>
  
 
 <link href="http://www.gstatic.com/codesite/ph/17444577587916266307/css/ph_core.css" rel="stylesheet" type="text/css" />
@@ -13,53 +13,15 @@
 </head>
 
 <body>
-    
-   
-  <!-- content -->  
-  <div  id="gc-pagecontent" >
-  <h1 class="page_title">Code Lab Example 1</h1>
-  
+
  <!-- tabs --> 
  <div id="tabs" class="gtb">
       <a id="home" href="#home" class="tab">Home</a>	   
 	  <a id="product" href="#product" class="tab">Product</a> 
-	  <a id="item" href="#item" class="tab">Item</a>	   
+	  <a id="item" href="#item" class="tab">Item</a>	
+	  <a id="user" href="#user" class="tab">User</a>   
 	  <div class="gtbc"></div>
-  </div>
-  <!-- home page content -->
-  <div class="g-unit" id="home-tab">
-  <h2>Create Flow Chart</h2>
-    <p>
-      <div align="left">
-        <img src="images/codeLab1Create.png" />
-      </div>
-      
-        <ol>
-          <li>Product/Item servlet will be invoked on clicking <b>Save</b>
-            from UI</li>
-          <li>doPut() method of respective servlet will
-            invoke <b>datastore API</b> to persist the data
-            into datastore</li>          
-        </ol>
-      </p>
-      
-    <h2>List Flow Chart</h2>
-     <p>
-      <div align="left">
-        <img src="images/codeLab1List.png" />
-      </div>
-     
-        <ol>
-          <li>Tab selection from UI invokes doGet() of the
-            respective servlet</li>          
-          <li>JSON objects are returned to the UI and
-            custom JSON converter will parse the JSON
-            objects</li>
-        </ol>
-      </p>
-  </div>  
-  
-  
+ </div>
    <!-- ******************************************* product ******************************************* -->
   <div class="g-unit" id="product-tab">
     <div class ="message" id="product-show-message" style="display:none">
@@ -91,7 +53,7 @@
   	</div>
   
   	<!-- create container -->
-	  	<div class="create-ctr" id="product-create-ctr">
+	 <div class="create-ctr" id="product-create-ctr">
 	  	<h2>Create Product</h2>
 	  	<form name="product-create-form" id="product-create-form">
 	  	<table width="200" cellspacing="0" cellpadding="0">

@@ -23,6 +23,7 @@ public class User {
   public static void createUser(String name, String password) {
     Entity user = getUser(name);
   	if (user == null) {
+  	  //The entity type is User
   	  user = new Entity("User", name);
   	  user.setProperty("password", password);
   	} else {

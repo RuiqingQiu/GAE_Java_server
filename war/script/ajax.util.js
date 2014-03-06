@@ -1,6 +1,7 @@
 var HOME='home';
 var ENTITY_PRODUCT='product';
 var ENTITY_ITEM='item';
+var ENTITY_USER='user';
 
 //function to initialize the page
 var init = function() {
