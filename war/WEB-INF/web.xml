@@ -12,6 +12,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>PlaceItsServer</servlet-name>
 		<url-pattern>/placeitsserver</url-pattern>
 	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>UserServlet</servlet-name>
 		<servlet-class>com.cse110team14.placeitserver.UserServlet</servlet-class>
@@ -21,6 +22,14 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/user</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>PlaceItsServlet</servlet-name>
+		<servlet-class>com.cse110team14.placeitserver.PlaceItsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PlaceItsServlet</servlet-name>
+		<url-pattern>/placeits</url-pattern>
+	</servlet-mapping>
 	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
