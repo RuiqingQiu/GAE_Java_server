@@ -21,11 +21,13 @@ public class PlaceIts {
    * @return  updated product
    */
   public static void createRegularPlaceIts(String title, String user, String description, String postDate, 
-		  String dateToBeReminded, String color, String type, String location, String placeitType, String sneezeType) {
+		  String dateToBeReminded, String color, String type, String location, String placeitType, String sneezeType,
+		  String listType) {
     Entity placeit = getPlaceIts(title);
   	if (placeit == null) {
   	  //The entity type is User
   	  placeit = new Entity("PlaceIts", title);
+  	  placeit.setProperty("title", title);
   	  placeit.setProperty("user", user);
   	  placeit.setProperty("description", description);
   	  placeit.setProperty("postDate", postDate);
@@ -36,9 +38,39 @@ public class PlaceIts {
   	  placeit.setProperty("location", location);
   	  placeit.setProperty("placeitType", placeitType);
   	  placeit.setProperty("sneezeType", sneezeType);
+  	  placeit.setProperty("listType", listType);
   	} else {
-  	  //TODO, dulicate user name
+  	  if(placeit.getProperty("user").equals(user)){
+  		 placeit.setProperty("listType", listType);
+  		 placeit.setProperty("postDate", postDate);
+  		 placeit.setProperty("dateToBeReminded", dateToBeReminded);
+  	  }
   	}
+    Key key = placeit.getKey();
+  	Util.persistEntity(placeit);
+  }
+  
+  public static void createCategoryPlaceIts(String title, String user, String description, String postDate, 
+		  String dateToBeReminded, String type, String categories, String listType) {
+    Entity placeit = getPlaceIts(title);
+  	if (placeit == null) {
+  	  //The entity type is User
+  	  placeit = new Entity("PlaceIts", title);
+  	  placeit.setProperty("title", title);
+  	  placeit.setProperty("user", user);
+  	  placeit.setProperty("description", description);
+  	  placeit.setProperty("postDate", postDate);
+  	  placeit.setProperty("dateToBeReminded", dateToBeReminded);
+  	  //type is for regular place or categorical placeit
+  	  placeit.setProperty("type", type);
+  	  placeit.setProperty("listType", listType);
+  	  placeit.setProperty("categories", categories);
+  	} else {
+  	  if(placeit.getProperty("user").equals(user)){
+  		 placeit.setProperty("listType", listType);
+  	  }
+  	}
+    Key key = placeit.getKey();
   	Util.persistEntity(placeit);
   }
 
@@ -75,7 +107,7 @@ public class PlaceIts {
   	query.addFilter(Entity.KEY_RESERVED_PROPERTY, Query.FilterOperator.GREATER_THAN, parentKey);
   		List<Entity> results = Util.getDatastoreServiceInstance()
   				.prepare(query).asList(FetchOptions.Builder.withDefaults());
-  		return results;
+  	return results;
   }
   
   /**
@@ -83,15 +115,15 @@ public class PlaceIts {
    * @param productKey: product to be deleted
    * @return status string
    */
-  public static String deletePlaceIts(String productKey)
+  public static String deletePlaceIts(String id)
   {
-	  Key key = KeyFactory.createKey("PlaceIts",productKey);	   
-	  
-	  List<Entity> items = getItems(productKey);	  
+	  Key key = KeyFactory.createKey("PlaceIts",id);
+	  Util.deleteEntity(key);
+	  List<Entity> items = getItems(id);	  
 	  if (!items.isEmpty()){
 	      return "Cannot delete, as there are items associated with this product.";	      
 	    }	    
-	  Util.deleteEntity(key);
+	 
 	  return "PlaceIts deleted successfully";
 	  
   }

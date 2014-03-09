@@ -67,27 +67,32 @@ public class PlaceItsServlet extends PlaceItsServerServlet {
       throws ServletException, IOException {
     logger.log(Level.INFO, "Creating PlaceIts");
     PrintWriter out = resp.getWriter();
-
-    String title = req.getParameter("PlaceIts");
+    //String id = req.getParameter("name");
+    String title = req.getParameter("title");
     String user = req.getParameter("user");
     String description = req.getParameter("description");
     String postDate = req.getParameter("postDate");
 	String dateToBeReminded = req.getParameter("dateToBeReminded"); 
-	String color = req.getParameter("color"); 
+	
 	String type = req.getParameter("type"); 
-	String location = req.getParameter("location"); 
-	String placeitType = req.getParameter("placeitType");
-	String sneezeType = req.getParameter("sneezeType");
+	
+	String listType = req.getParameter("listType");
     try {
       //If the type is 1, it's a regular placeit
       if(type.equals("1"))
       {
+    	  String location = req.getParameter("location"); 
+    	  String color = req.getParameter("color"); 
+    	  String placeitType = req.getParameter("placeitType");
+    	  String sneezeType = req.getParameter("sneezeType");
     	  PlaceIts.createRegularPlaceIts(title,user, description,postDate,dateToBeReminded, color,
-    		  type, location, placeitType, sneezeType);
+    		  type, location, placeitType, sneezeType, listType);
       }
       //If the type is 2, it's a categorical placeit
       else{
-    	  //TODO
+    	  String categories = req.getParameter("categories");
+    	  PlaceIts.createCategoryPlaceIts(title, user, description, postDate, 
+    			  dateToBeReminded, type, categories, listType);
       }
     } catch (Exception e) {
       String msg = Util.getErrorMessage(e);
@@ -100,13 +105,13 @@ public class PlaceItsServlet extends PlaceItsServerServlet {
    */
   protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    String productkey = req.getParameter("id");
+    String id = req.getParameter("name");
     PrintWriter out = resp.getWriter();
     try{    	
-    	out.println(User.deleteUser(productkey));
+    	out.println(PlaceIts.deletePlaceIts(id));
     } catch(Exception e) {
     	out.println(Util.getErrorMessage(e));
-    }    
+    } 
   }
 
   /**

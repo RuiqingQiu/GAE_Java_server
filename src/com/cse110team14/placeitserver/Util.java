@@ -47,7 +47,7 @@ public class Util {
  */
   public static void persistEntity(Entity entity) {
   	logger.log(Level.INFO, "Saving entity");
-  	datastore.put(entity);  	
+  	datastore.put(entity); 
   }
 
 	/**
