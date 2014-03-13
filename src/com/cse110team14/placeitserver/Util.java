@@ -39,7 +39,7 @@ import com.google.appengine.api.datastore.Query.FilterOperator;
 public class Util {
 
   private static final Logger logger = Logger.getLogger(Util.class.getCanonicalName());
-  private static DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();;  
+  public static DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();;  
 
 /**
  * 

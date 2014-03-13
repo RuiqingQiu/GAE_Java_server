@@ -23,6 +23,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>CPlaceItsServlet</servlet-name>
+		<servlet-class>com.cse110team14.placeitserver.CPlaceItsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CPlaceItsServlet</servlet-name>
+		<url-pattern>/cplaceits</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>PlaceItsServlet</servlet-name>
 		<servlet-class>com.cse110team14.placeitserver.PlaceItsServlet</servlet-class>
 	</servlet>

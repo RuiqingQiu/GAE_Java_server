@@ -17,7 +17,6 @@ package com.cse110team14.placeitserver;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,7 +33,7 @@ import com.google.appengine.api.datastore.Entity;
  * 
  */
 @SuppressWarnings("serial")
-public class PlaceItsServlet extends PlaceItsServerServlet {
+public class CPlaceItsServlet extends PlaceItsServerServlet {
 
   private static final Logger logger = Logger.getLogger(UserServlet.class.getCanonicalName());
   /**
@@ -44,18 +43,20 @@ public class PlaceItsServlet extends PlaceItsServerServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 	super.doGet(req, resp);
-    logger.log(Level.INFO, "Obtaining placeits listing");
+    logger.log(Level.INFO, "Obtaining category placeits listing");
     String searchFor = req.getParameter("q");
     PrintWriter out = resp.getWriter();
     Iterable<Entity> entities = null;
     if (searchFor == null || searchFor.equals("") || searchFor == "*") {
-      entities = PlaceIts.getAllUsers("PlaceIts");
+      entities = User.getAllUsers("CPlaceIts");
       out.println(Util.writeJSON(entities));
     } else {
-      Entity product = PlaceIts.getPlaceIts(searchFor);
-      Set<Entity> result = new HashSet<Entity>();
-      result.add(product);
-      out.println(Util.writeJSON(result));
+      Entity product = User.getUser(searchFor);
+      if (product != null) {
+        Set<Entity> result = new HashSet<Entity>();
+        result.add(product);
+        out.println(Util.writeJSON(result));
+      }
     }
   }
 
@@ -64,7 +65,7 @@ public class PlaceItsServlet extends PlaceItsServerServlet {
    */
   protected void doPut(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    logger.log(Level.INFO, "Creating PlaceIts");
+    logger.log(Level.INFO, "Creating CPlaceIts");
     PrintWriter out = resp.getWriter();
     //String id = req.getParameter("name");
     String title = req.getParameter("title");
@@ -77,15 +78,10 @@ public class PlaceItsServlet extends PlaceItsServerServlet {
 	
 	String listType = req.getParameter("listType");
     try {
-      //If the type is 1, it's a regular placeit
-      if(type.equals("1"))
-      {
-    	  String location = req.getParameter("location"); 
-    	  String color = req.getParameter("color"); 
-    	  String placeitType = req.getParameter("placeitType");
-    	  String sneezeType = req.getParameter("sneezeType");
-    	  PlaceIts.createRegularPlaceIts(title,user, description,postDate,dateToBeReminded, color,
-    		  type, location, placeitType, sneezeType, listType);
+      if(type.equals("2")){
+    	  String categories = req.getParameter("categories");
+    	  CPlaceIts.createCategoryPlaceIts(title, user, description, postDate, 
+    			  dateToBeReminded, type, categories, listType);
       }
     } catch (Exception e) {
       String msg = Util.getErrorMessage(e);

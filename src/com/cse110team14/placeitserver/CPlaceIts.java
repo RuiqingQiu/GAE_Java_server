@@ -4,7 +4,6 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import java.util.List;
 
@@ -13,50 +12,14 @@ import java.util.List;
  * Product entity.
  *
  */
-public class PlaceIts {
-
-  /**
-   * Update the product
-   * @param name: name of the product
-   * @param description : description
-   * @return  updated product
-   */
-  public static void createRegularPlaceIts(String title, String user, String description, String postDate, 
-		  String dateToBeReminded, String color, String type, String location, String placeitType, String sneezeType,
-		  String listType) {
-    Entity placeit = getPlaceIts(title);
-  	if (placeit == null) {
-  	  //The entity type is User
-  	  placeit = new Entity("PlaceIts", title);
-  	  placeit.setProperty("title", title);
-  	  placeit.setProperty("user", user);
-  	  placeit.setProperty("description", description);
-  	  placeit.setProperty("postDate", postDate);
-  	  placeit.setProperty("dateToBeReminded", dateToBeReminded);
-  	  placeit.setProperty("color", color);
-  	  //type is for regular place or categorical placeit
-  	  placeit.setProperty("type", type);
-  	  placeit.setProperty("location", location);
-  	  placeit.setProperty("placeitType", placeitType);
-  	  placeit.setProperty("sneezeType", sneezeType);
-  	  placeit.setProperty("listType", listType);
-  	} else {
-  	  if(placeit.getProperty("user").equals(user)){
-  		 placeit.setProperty("listType", listType);
-  		 placeit.setProperty("postDate", postDate);
-  		 placeit.setProperty("dateToBeReminded", dateToBeReminded);
-  	  }
-  	}
-    Key key = placeit.getKey();
-  	Util.persistEntity(placeit);
-  }
-  
+public class CPlaceIts {
+ 
   public static void createCategoryPlaceIts(String title, String user, String description, String postDate, 
 		  String dateToBeReminded, String type, String categories, String listType) {
     Entity placeit = getPlaceIts(title);
   	if (placeit == null) {
   	  //The entity type is User
-  	  placeit = new Entity("PlaceIts", title);
+  	  placeit = new Entity("CPlaceIts", title);
   	  placeit.setProperty("title", title);
   	  placeit.setProperty("user", user);
   	  placeit.setProperty("description", description);
@@ -93,7 +56,7 @@ public class PlaceIts {
   	Key key = KeyFactory.createKey("PlaceIts",name);
   	return Util.findEntity(key);
   }
-  
+
   /**
    * Get all items for a product
    * @param name: name of the product
